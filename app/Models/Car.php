@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -17,7 +18,10 @@ class Car extends Model
         'price',
         'description',
         'image_path',
+        'quantity',
     ];
+
+    use HasFactory;
 
     public function orders()
     {

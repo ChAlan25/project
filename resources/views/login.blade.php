@@ -80,11 +80,11 @@
         <div class="bg-white  absolute rounded shadow-md flex flex-row justify-center items-center">
             <div class="w-96 bg-white p-8 rounded ">
                 <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
-                <form action="/login" method="POST">
+                <form action="{{ route('login.post') }}" method="POST">
                     @csrf
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700">Email:</label>
-                        <input type="email" name="email" id="email" required
+                        <input type="email" name="email" id="email" value="{{ old('email') }}" required
                             class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500">
                     </div>
                     <div class="mb-4">
@@ -100,16 +100,16 @@
             </div>
             <div class="w-96 bg-white p-8 rounded ">
                 <h2 class="text-2xl font-bold mb-6 text-center">register</h2>
-                <form action="/register" method="POST">
+                <form action="{{ route('register.post') }}" method="POST">
                     @csrf
                     <div class="mb-4">
                         <label for="name" class="block text-gray-700">Name:</label>
-                        <input type="text" name="name" id="name" required
+                        <input type="text" name="name" id="name" value="{{ old('name') }}" required
                             class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500">
                     </div>
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700">Email:</label>
-                        <input type="email" name="email" id="email" required
+                        <input type="email" name="email" id="email" value="{{ old('email') }}" required
                             class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500">
                     </div>
                     <div class="mb-4">
@@ -121,8 +121,18 @@
                         class="w-full bg-red-500 hover:bg-red-700 hover:cursor-pointer text-white font-bold py-2 px-4 rounded">Register</button>
                 </form>
                 <p class="mt-4 text-center hover:cursor-pointer">Already have an account? <button
-                        onclick="moveToLogin()"
-                        class="text-red-500 hover:underline hover:cursor-pointer">Login</button></p>
+                        onclick="moveToLogin()" class="text-red-500 hover:underline hover:cursor-pointer">Login</button>
+                </p>
+                <!-- validation errors -->
+                @if ($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
             <div class="absolute flex flex-row overflow-hidden w-1/2 h-full" name="images">
                 <img src="{{ asset('images/login/1.jpg') }}" class="min-w-full bg-cover" alt="">
