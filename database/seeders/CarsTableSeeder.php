@@ -36,9 +36,5 @@ class CarsTableSeeder extends Seeder
             // Add more car records as needed
         ];
 
-        // Insert the car records into the database
-        foreach ($cars as $car) {
-            \App\Models\Car::create($car);
-        }
     }
 }
