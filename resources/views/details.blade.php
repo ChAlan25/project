@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="icon" href="{{ asset('images/logo.svg') }}" type="image/svg+xml">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
+    <title>Document</title>
 </head>
 
 <body>
+
     <nav class="bg-black border-b border-gray-300  text-white">
         <ul class="flex justify-end gap-4 items-center list-none text-white">
             <li
@@ -61,30 +62,16 @@
             </div>
         </ul>
     </nav>
-    <div class="flex flex-row overflow-hidden w-full h-140 relative">
 
-        <div>
-            <img src="{{ asset('images/audi.jpg') }}" class="min-w-dvw h-140 bg-cover -z-1" alt="">
-            <div class="w-screen h-140 bg-gray-500 opacity-50 absolute right-0 top-0"></div>
-            <div class="h-1/2 w-1/2 absolute flex flex-col text-white bottom-0 left-0">
-                <h1 class="text-5xl font-bold m-4">Welcome to Our Car Dealership</h1>
-                <p class="text-lg m-4">Discover the best deals on luxury cars</p>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="flex flex-row flex-wrap justify-center items-center w-fit bg-white space-between m-5">
-        @foreach ($cars as $car)
-            <div class="flex flex-col h-100 w-70 bg-white rounded shadow-md border-2 border-gray-300 p-4 m-2">
-                <img src="{{ $car->image_path }}" class="h-1/2 w-full bg-cover" alt="">
+    <div class="flex flex-row">
+        <form action="{{ route('cars.buy', $car->id) }}" method="post">
+            <img src="{{ $car->image_path }}" alt="">
+            <div class="flex flex-col justify-center items-center">
                 <h2 class="text-2xl font-bold m-6 text-center">{{ $car->name }}</h2>
                 <p class="text-lg m-4">{{ $car->description }}</p>
-                <button
-                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded justify-end bottom-0 hover:cursor-pointer">View
-                    More</button>
-            </div>
-        @endforeach
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer" type="submit">Buy Now</button>
+        </form>
+    </div>
     </div>
 </body>
 

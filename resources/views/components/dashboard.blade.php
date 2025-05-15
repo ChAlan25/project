@@ -15,11 +15,11 @@
             <button class="w-full justify-start text-start pl-10 hover:bg-blue-700 hover:cursor-pointer"><a
                     href="{{ route('index') }}" class="text-black text-2xl font-medium">
                     < </a></button>
-            <button class="w-full justify-start text-start pl-10 hover:bg-blue-700 hover:cursor-pointer"><a href=""
+            <button class="w-full justify-start text-start pl-10 hover:bg-blue-700 hover:cursor-pointer"><a href="{{ route('dashboard.cars') }}"
                     class="text-black text-2xl font-medium">cars</a></button>
-            <button class="w-full justify-start text-start pl-10 hover:bg-blue-700 hover:cursor-pointer"><a href=""
+            <button class="w-full justify-start text-start pl-10 hover:bg-blue-700 hover:cursor-pointer"><a href="{{ route('dashboard.users') }}"
                     class="text-black text-2xl font-medium">users</a></button>
-            <button class="w-full justify-start text-start pl-10 hover:bg-blue-700 hover:cursor-pointer"><a href=""
+            <button class="w-full justify-start text-start pl-10 hover:bg-blue-700 hover:cursor-pointer"><a href="{{ route('dashboard.orders') }}"
                     class="text-black text-2xl font-medium">orders</a></button>
         </div>
         <div class="flex flex-col w-full h-full bg-gray-100">
