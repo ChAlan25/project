@@ -13,7 +13,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout.post');
 
 Route::get('/products', [CarController::class, 'products'])->name('products');
 Route::get('/products/{id}', [CarController::class, 'detail'])->name('cars.details');
-Route::post('/products/{id}', [CarController::class, 'buy'])->name('cars.buy');
+Route::get('/products/{id}/buy', [CarController::class, 'buyView'])->name('cars.buyView')->middleware('auth');
+Route::post('/products/{id}/buy', [CarController::class, 'buy'])->name('cars.buy')->middleware('auth');
 
 Route::get('/dashboard/cars', [CarController::class, 'dashboard'])->name('dashboard.cars');
 Route::delete('/dashboard/cars/{id}', [CarController::class, 'destroy'])->name('dashboard.cars.destroy');

@@ -12,7 +12,8 @@
     <button class="bg-gray-500 text-black px-4 py-2 rounded hover:bg-gray-700 hover:cursor-pointer m-6"><a
             href="{{ route('dashboard.cars') }}">
             < back</a></button>
-    <form action="{{ route('dashboard.cars.update', $car->id) }}" method="POST" class="flex flex-col gap-4 p-5">
+    <form action="{{ route('dashboard.cars.update', $car->id) }}" method="POST" class="flex flex-col gap-4 p-5"
+        enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <table class="border-collapse border border-gray-300 gap-4">
@@ -28,9 +29,20 @@
             </tr>
             <tr>
                 <td>
+                    <label for="image">image :</label>
+                </td>
+                <td>
+                    <input type="file"
+                        class="px-3 w-52 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                        name="image_path" accept="image/*">
+                </td>
+            <tr>
+                <td>
                     <label for="brand">brand</label>
                 </td>
-                <td><input type="text" class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500" name="brand" value="{{ $car->brand }}"></td>
+                <td><input type="text"
+                        class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                        name="brand" value="{{ $car->brand }}"></td>
             </tr>
             <tr>
                 <td>

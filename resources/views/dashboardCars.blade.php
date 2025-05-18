@@ -17,7 +17,8 @@
             <tbody>
                 @foreach ($cars as $car)
                     <tr>
-                        <td class="border-b-1 "><img src="{{ $car->image }}" alt="{{ $car->image_path }}" width="100"></td>
+                        <td class="border-b-1 "><img src="{{ asset('storage/' . $car->image_path) }}"
+                                alt="{{ $car->image_path }}" width="100"></td>
                         <td class="border-b-1  text-center">{{ $car->name }}</td>
                         <td class="border-b-1  text-center">{{ $car->description }}</td>
                         <td class="border-b-1 text-center">{{ $car->price }}DT</td>

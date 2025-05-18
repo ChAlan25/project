@@ -64,12 +64,15 @@
     </nav>
 
     <div class="flex flex-row">
-        <form action="{{ route('cars.buy', $car->id) }}" method="post">
-            <img src="{{ $car->image_path }}" alt="">
+        <form action="{{ route('cars.buy', $car->id) }}" method="post" class="flex flex-col gap-4 mb-5">
+            @csrf
+            <img src="{{ asset('storage/' . $car->image_path) }}" alt="">
             <div class="flex flex-col justify-center items-center">
                 <h2 class="text-2xl font-bold m-6 text-center">{{ $car->name }}</h2>
                 <p class="text-lg m-4">{{ $car->description }}</p>
-                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer" type="submit">Buy Now</button>
+                <a href="{{ route('cars.buyView', $car->id) }}">Buy Now</a>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
+                    type="submit">Buy Now</button>
         </form>
     </div>
     </div>

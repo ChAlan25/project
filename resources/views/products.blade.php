@@ -63,14 +63,14 @@
     </nav>
     <div class="flex flex-row flex-wrap justify-center items-center w-fit bg-white space-between m-5">
         @foreach ($cars as $car)
-            <div class="flex flex-col h-100 w-70 bg-white rounded shadow-md border-2 border-gray-300 p-4 m-2">
-                <img src="{{ $car->image_path }}" class="h-1/2 w-full bg-cover" alt="">
-                <h2 class="text-2xl font-bold m-6 text-center">{{ $car->name }}</h2>
-                <p class="text-lg m-4">{{ $car->description }}</p>
-                <button
-                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded justify-end bottom-0 hover:cursor-pointer"><a
-                        href="{{ route('cars.details', $car->id) }}">View
-                        More</a></button>
+            <div class="flex flex-col min-h-fit w-70 bg-white rounded shadow-md border-2 border-gray-300 p-4 m-2">
+                <img src="{{ asset("storage/{$car->image_path}") }}" class="h-1/2 w-full bg-cover" alt="">
+                <h2 class="text-2xl font-bold m-2 text-center">{{ $car->name }}</h2>
+                <p class="text-lg m-2">{{ $car->description }}</p>
+                <a href="{{ route('cars.details', $car->id) }}"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded justify-end bottom-0 hover:cursor-pointer">
+                    View More
+                </a>
             </div>
         @endforeach
     </div>

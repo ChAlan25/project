@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CarController extends Controller
 {
@@ -31,11 +32,19 @@ class CarController extends Controller
         return view('details', compact('car'));
     }
 
-    function buy($id, Request $request)
+    public function buyView($id)
     {
+        // Fetch the car by ID
+        $car = Car::findOrFail($id);
+
+        // Return the view with the car data
+        return view('buyView', compact('car'));
+    }
+
+    public function buy($id, Request $request)
+    {
+        // Validate only the remaining fields
         $request->validate([
-            'user_id' => 'required|integer',
-            'car_id' => 'required|integer',
             'order_date' => 'required|date',
             'status' => 'required|string',
             'total_price' => 'required|numeric',
@@ -43,17 +52,17 @@ class CarController extends Controller
             'payment_method' => 'nullable|string',
         ]);
 
-        // Create a new order
+        // Create a new order with car ID and authenticated user ID
         $order = new Order();
-        $order->user_id = $request->input('user_id');
-        $order->car_id = $request->input('car_id');
+        $order->user_id = Auth::id();     // Get the logged-in user's ID
+        $order->car_id = $id;             // Car ID from the route
         $order->order_date = $request->input('order_date');
         $order->status = $request->input('status');
         $order->total_price = $request->input('total_price');
         $order->shipping_address = $request->input('shipping_address');
         $order->payment_method = $request->input('payment_method');
         $order->save();
-        // Redirect to a success page or dashboard
+
         return redirect()->route('index')->with('success', 'Order placed successfully!');
     }
 
@@ -99,8 +108,9 @@ class CarController extends Controller
     public function update(Request $request, $id)
     {
         // Validate the request data
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'brand' => 'required|string',
             'model' => 'required|string',
             'year' => 'required|integer',
@@ -111,12 +121,19 @@ class CarController extends Controller
         // Find the car by ID
         $car = Car::findOrFail($id);
 
+        // If an image is uploaded, handle it separately
+        if ($request->hasFile('image_path')) {
+            $imagePath = $request->file('image_path')->store('images', 'public');
+            $validatedData['image_path'] = $imagePath;
+        }
+
         // Update the car details
-        $car->update($request->all());
+        $car->update($validatedData);
 
         // Redirect back to the dashboard with a success message
         return redirect()->route('dashboard.cars')->with('success', 'Car updated successfully!');
     }
+
     public function create()
     {
         // Return the view for creating a new car
@@ -132,6 +149,7 @@ class CarController extends Controller
             'model' => 'required|string',
             'year' => 'required|integer',
             'description' => 'nullable|string',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'price' => 'required|numeric',
         ]);
         // Create a new car instance
@@ -141,6 +159,8 @@ class CarController extends Controller
         $car->model = $request->input('model');
         $car->year = $request->input('year');
         $car->description = $request->input('description');
+        $car->image_path = $request->file('image_path')->store('images', 'public');
+        $car->quantity = $request->input('quantity', 0); // Default to 0 if not provided
         $car->price = $request->input('price');
         $car->save();
 
